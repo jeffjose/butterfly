@@ -230,14 +230,19 @@ class AspectRatioVideoState extends State<AspectRatioVideo> {
   Widget build(BuildContext context) {
     if (initialized) {
       final Size size = controller.value.size;
-      return new Center(
-        child: new AspectRatio(
-          aspectRatio: size.width / size.height,
-          child: new VideoPlayPause(controller),
-        ),
+
+      return new Container(
+        height: 350.0,
+        color: Colors.blue,
+        child: new Center(
+          child: new AspectRatio(
+            aspectRatio: size.width / size.height,
+            child: new VideoPlayPause(controller),
+          ),
+        )
       );
     } else {
-      return new Container();
+      return new Container(height: 350.0);
     }
   }
 }
@@ -258,43 +263,16 @@ class Media extends StatelessWidget {
 
       return new PlayerLifeCycle(this.url,
           (BuildContext context, VideoPlayerController controller) => new AspectRatioVideo(controller));
-      //final VideoPlayerController controller = new VideoPlayerController(this.url,);
-      //controller.setLooping(true);
-      //controller.play();
-      //controller.setVolume(0.0);
-      //controller.initialize();
-
-      //return new VideoPlayer(controller);
-
-      //return new Image.network('https://www.webmproject.org/media/images/webm-558x156.png',
-      //    height: 400.0,
-      //    fit: BoxFit.fitWidth,
-      //    gaplessPlayback: true,
-      //    );
     }
 
     else if (this.url.endsWith('.mp4')) {
 
       return new PlayerLifeCycle(this.url,
           (BuildContext context, VideoPlayerController controller) => new AspectRatioVideo(controller));
-
-      //final VideoPlayerController controller = new VideoPlayerController(this.url,);
-      //controller.setLooping(true);
-      //controller.play();
-      //controller.setVolume(0.0);
-      //controller.initialize();
-
-      //return new VideoPlayer(controller);
-
-      //return new Image.network('https://botw-pd.s3.amazonaws.com/styles/logo-thumbnail/s3/112012/mp4_video.jpg',
-      //    height: 400.0,
-      //    fit: BoxFit.fitWidth,
-      //    gaplessPlayback: true,
-      //    );
     }
     else {
       return new Image.network(this.url,
-          height: 400.0,
+          height: 350.0,
           fit: BoxFit.fitWidth,
           gaplessPlayback: true,
           );
@@ -318,7 +296,7 @@ class MemeItem extends StatelessWidget {
 
     //final image = new Image.network(
     //    meme.url,
-    //    height: 400.0,
+    //    height: 350.0,
     //    fit: BoxFit.fitWidth,
     //    gaplessPlayback: true
     //    );
@@ -326,7 +304,12 @@ class MemeItem extends StatelessWidget {
 
     final media = new Media(url: meme.url);
 
-    return new Column(children: <Widget>[media, info]);
+    return new Container(
+        color: Colors.green,
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        margin: const EdgeInsets.symmetric(vertical: 10.0),
+        child: new Column(children: <Widget>[media, info]),
+          );
   }
 }
 

@@ -1,4 +1,4 @@
-package com.example.butterfly;
+package com.jeffjose.butterfly;
 
 import android.os.Bundle;
 
