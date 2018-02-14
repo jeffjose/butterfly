@@ -10,6 +10,11 @@ class Meme {
 class MemeData {
   static final List<Meme> memes = [
     const Meme(
+        id: 8,
+        author: 'dog',
+        template: 'template_8',
+        url: 'https://thumbs.gfycat.com/CriminalFickleIberianbarbel-max-14mb.gif'),
+    const Meme(
         id: 6,
         author: 'burgerwithfries',
         template: 'template_6',
@@ -39,11 +44,6 @@ class MemeData {
         author: 'boston',
         template: 'template_7',
         url: 'https://thumbs.gfycat.com/LazyBraveGlowworm-max-14mb.gif'),
-    const Meme(
-        id: 8,
-        author: 'dog',
-        template: 'template_8',
-        url: 'https://thumbs.gfycat.com/CriminalFickleIberianbarbel-max-14mb.gif'),
     const Meme(
         id: 9,
         author: 'upvote',

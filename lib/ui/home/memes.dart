@@ -233,7 +233,7 @@ class AspectRatioVideoState extends State<AspectRatioVideo> {
 
       return new Container(
         height: 350.0,
-        color: Colors.blue,
+        color: Theme.Colors.mediaBackground,
         child: new Center(
           child: new AspectRatio(
             aspectRatio: size.width / size.height,
@@ -271,10 +271,13 @@ class Media extends StatelessWidget {
           (BuildContext context, VideoPlayerController controller) => new AspectRatioVideo(controller));
     }
     else {
-      return new Image.network(this.url,
+      return new Container(
+          color: Theme.Colors.mediaBackground,
           height: 350.0,
-          fit: BoxFit.fitWidth,
-          gaplessPlayback: true,
+          child: new Image.network(this.url,
+            fit: BoxFit.fitWidth,
+            gaplessPlayback: true,
+          )
           );
     }
 
@@ -293,13 +296,6 @@ class MemeItem extends StatelessWidget {
       new Text(meme.url),
       new Icon(Icons.comment),
     ]);
-
-    //final image = new Image.network(
-    //    meme.url,
-    //    height: 350.0,
-    //    fit: BoxFit.fitWidth,
-    //    gaplessPlayback: true
-    //    );
 
 
     final media = new Media(url: meme.url);
