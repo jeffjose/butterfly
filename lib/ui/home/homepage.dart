@@ -8,12 +8,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        body: new Column(children: <Widget>[
-      new AppBarX("memester"),
-      new Memes(),
+        body: new Column(
+          children: <Widget>[
+            new AppBarX("memester"),
+            new Memes(),
     ]));
   }
 }
