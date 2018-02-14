@@ -260,12 +260,29 @@ class AspectRatioVideoState extends State<AspectRatioVideo> {
   }
 }
 
+class JVideoStateless extends StatelessWidget {
+
+  final String url;
+
+  const JVideoStateless(this.url);
+
+  @override
+  Widget build(BuildContext context) {
+
+    VideoPlayerController controller = new VideoPlayerController(this.url);
+    controller.initialize();
+    controller.play();
+    return new VideoPlayer(controller);
+
+  }
+
+}
+
 class JVideo extends StatefulWidget {
 
   final String url;
 
   JVideo(this.url);
-
 
   @override
   _JVideoState createState() => new _JVideoState();
@@ -303,12 +320,9 @@ class Media extends StatelessWidget {
 
     else if (this.url.endsWith('.mp4')) {
 
-      print("XXXXXXXXXXXXXXXXXX");
-      print("building playlifecycle");
-      print(this.url);
-      print("XXXXXXXXXXXXXXXXXX");
+      print("XXXXXXXXXXXXXX  3. Media.build(): Building JVideo: " + this.url);
 
-      return new JVideo(this.url);
+      return new JVideoStateless(this.url);
       //return new PlayerLifeCycle(this.url,
       //    (BuildContext context, VideoPlayerController controller) => new AspectRatioVideo(controller));
     }
@@ -339,10 +353,7 @@ class MemeItem extends StatelessWidget {
       new Icon(Icons.comment),
     ]);
 
-      print("XXXXXXXXXXXXXXXXXX");
-      print("MemeItem.build()");
-      print(meme.url);
-      print("XXXXXXXXXXXXXXXXXX");
+      print("XXXXXXXXXXXXXX  2. MemeItem.build(). Building Media(): " + meme.url);
 
 
     final media = new Media(url: meme.url);
@@ -360,9 +371,8 @@ class Memes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    print("XXXXXXXXXXXXXXXXXX");
-    print("Memes.build()");
-    print("XXXXXXXXXXXXXXXXXX");
+    print("XXXXXXXXXXXXXX  1. Memes.build()");
+
     return new Flexible(
         child: new Container(
            // child: new ListView.builder(
