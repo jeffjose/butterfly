@@ -178,11 +178,11 @@ class _PlayerLifeCycleState extends State<PlayerLifeCycle> {
   void initState() {
     super.initState();
     controller = new VideoPlayerController(widget.uri);
-    controller.addListener(() {
-      if (controller.value.hasError) {
-        print(controller.value.errorDescription);
-      }
-    });
+    //controller.addListener(() {
+    //  if (controller.value.hasError) {
+    //    print(controller.value.errorDescription);
+    //  }
+    //});
     controller.initialize();
     controller.setLooping(true);
     controller.play();
@@ -196,7 +196,11 @@ class _PlayerLifeCycleState extends State<PlayerLifeCycle> {
   @override
   void dispose() {
     controller.dispose();
-    super.dispose();
+    controller.pause();
+    print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+    print("controller.pause()");
+    print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+    //super.dispose();
   }
 
   @override
@@ -213,14 +217,23 @@ class AspectRatioVideoState extends State<AspectRatioVideo> {
 
   @override
   void initState() {
+
+    print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+    print("mounted");
+    print(mounted);
+    print(initialized);
+    print(controller.value.initialized);
+    print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
     super.initState();
     listener = () {
       if (!mounted) {
         return;
       }
       if (initialized != controller.value.initialized) {
-        initialized = controller.value.initialized;
-        setState(() {});
+        setState(() {
+          initialized = controller.value.initialized;
+        });
       }
     };
     controller.addListener(listener);
@@ -247,8 +260,31 @@ class AspectRatioVideoState extends State<AspectRatioVideo> {
   }
 }
 
+class JVideo extends StatefulWidget {
+
+  final String url;
+
+  JVideo(this.url);
 
 
+  @override
+  _JVideoState createState() => new _JVideoState();
+}
+
+class _JVideoState extends State<JVideo> {
+
+   VideoPlayerController controller;
+   void initState() {
+      this.controller = new VideoPlayerController(widget.url);
+      this.controller.initialize();
+      this.controller.play();
+   }
+
+  @override
+  Widget build(BuildContext context) {
+    return new VideoPlayer(this.controller);
+  }
+}
 
 class Media extends StatelessWidget {
 
@@ -267,8 +303,14 @@ class Media extends StatelessWidget {
 
     else if (this.url.endsWith('.mp4')) {
 
-      return new PlayerLifeCycle(this.url,
-          (BuildContext context, VideoPlayerController controller) => new AspectRatioVideo(controller));
+      print("XXXXXXXXXXXXXXXXXX");
+      print("building playlifecycle");
+      print(this.url);
+      print("XXXXXXXXXXXXXXXXXX");
+
+      return new JVideo(this.url);
+      //return new PlayerLifeCycle(this.url,
+      //    (BuildContext context, VideoPlayerController controller) => new AspectRatioVideo(controller));
     }
     else {
       return new Container(
@@ -297,6 +339,11 @@ class MemeItem extends StatelessWidget {
       new Icon(Icons.comment),
     ]);
 
+      print("XXXXXXXXXXXXXXXXXX");
+      print("MemeItem.build()");
+      print(meme.url);
+      print("XXXXXXXXXXXXXXXXXX");
+
 
     final media = new Media(url: meme.url);
 
@@ -312,12 +359,26 @@ class MemeItem extends StatelessWidget {
 class Memes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    print("XXXXXXXXXXXXXXXXXX");
+    print("Memes.build()");
+    print("XXXXXXXXXXXXXXXXXX");
     return new Flexible(
         child: new Container(
-            child: new ListView.builder(
-                itemCount: MemeData.memes.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return new MemeItem(MemeData.memes[index]);
-                })));
+           // child: new ListView.builder(
+           //     itemCount: MemeData.memes.length,
+           //     itemBuilder: (BuildContext context, int index) {
+           //       print("XXXXXXXXXXXXXXXXXX");
+           //       print("building");
+           //       print(index);
+           //       print("XXXXXXXXXXXXXXXXXX");
+           //       return new MemeItem(MemeData.memes[index]);
+           //     })
+
+          child: new ListView(
+            children: MemeData.memes.map((Meme meme) => new MemeItem(meme)).toList()
+            )
+
+            ));
   }
 }
