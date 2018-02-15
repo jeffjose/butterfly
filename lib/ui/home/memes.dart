@@ -364,15 +364,22 @@ class MemeCard extends StatefulWidget {
 
 class MemeCardState extends State<MemeCard> {
 
-  Media media;
+  final Media media;
 
   @override
   void initState() {
 
-    print("XXXXXXXXXXXXXX  2a. MemeCard.initState(). Building Media(): " + widget.meme.url);
-    media = new Media(url: widget.meme.url);
+    if (widget.meme.url.endsWith('.mp4')) {
+      print("");
+      print("");
+      print("");
+      print("XXXXXXXXXXXXXX  2a. MemeCard.initState(). Building Media(): " + widget.meme.url);
+      print("");
+      print("");
+      print("");
+    }
+    Media media = new Media(url: widget.meme.url);
     super.initState();
-
 
   }
 
@@ -384,13 +391,21 @@ class MemeCardState extends State<MemeCard> {
       new Icon(Icons.comment),
     ]);
 
-    print("XXXXXXXXXXXXXX  2. MemeCard.build(). Returning Card: " + widget.meme.url);
+    if (widget.meme.url.endsWith('.mp4')) {
+      print("");
+      print("");
+      print("");
+      print("XXXXXXXXXXXXXX  2. MemeCard.build(). Returning Card: " + widget.meme.url);
+      print("");
+      print("");
+      print("");
+    }
 
     return new Container(
         color: Colors.green,
         padding: const EdgeInsets.symmetric(vertical: 10.0),
         margin: const EdgeInsets.symmetric(vertical: 10.0),
-        child: new Column(children: <Widget>[media, info]),
+        child: new Column(children: <Widget>[this.media, info]),
           );
   }
 }
@@ -406,12 +421,18 @@ class Memes extends StatefulWidget {
 
 class MemesState extends State<Memes> {
 
-  List<MemeCard> memes;
+  List<MemeCard> memes = MemeData.memes.map((Meme meme) => new MemeCard(meme: meme)).toList();
 
   @override
   void initState() {
 
-    memes = MemeData.memes.map((Meme meme) => new MemeCard(meme: meme)).toList();
+    print("");
+    print("");
+    print("");
+    print("---------------------------- MemesStats.initState()");
+    print("");
+    print("");
+    print("");
 
   }
 
