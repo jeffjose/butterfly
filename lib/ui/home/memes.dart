@@ -182,18 +182,18 @@ class MemesXState extends State<MemesX> {
   void initState() {
     super.initState();
 
-      Future<Null> initController(VideoPlayerController controller) async {
+      //Future<Null> initController(VideoPlayerController controller) async {
 
-         final bool controllerInitialized = controller.value.initialized;
-         print("-------------------------------");
-         print(controllerInitialized);
-        controller.setLooping(true);
-        controller.play();
-        await controller.initialize();
-        setState(() {});
-      }
+      //   final bool controllerInitialized = controller.value.initialized;
+      //   //print("-------------------------------");
+      //   //print(controllerInitialized);
+      //  controller.setLooping(true);
+      //  controller.play();
+      //  await controller.initialize();
+      //  setState(() {});
+      //}
 
-      initController(controller);
+      //initController(controller);
   }
 
   @override
@@ -202,16 +202,26 @@ class MemesXState extends State<MemesX> {
     return new Flexible(
     child: new ListView(
         children: <Widget>[
-          new Text("foobar"),
-          new Text("foobar"),
+          new Text("VideoXX"),
+          new VideoXX('http://mirrors.standaloneinstaller.com/video-sample/DLP_PART_2_768k.mp4'),
+          new Text("Inline"),
           //new Video(url: "foobar"),
           //new VideoPlayer(controller),
-            new AspectRatio(
-            aspectRatio: 1280/720,
-            child: new VideoPlayer(controller)
-          ),
+          //  new AspectRatio(
+          //  aspectRatio: 1280/720,
+          //  child: new VideoPlayer(controller)
+          //),
           new Text("foobar"),
+          //new Text("Inline"),
+          //  new AspectRatio(
+          //  aspectRatio: 1280/720,
+          //  child: new VideoPlayer(controller)
+          //),
+          new Text("VideoXX"),
+          //new VideoXX('http://mirrors.standaloneinstaller.com/video-sample/DLP_PART_2_768k.mp4'),
           new Text("foobar"),
+          new Text("VideoX"),
+          //new VideoX(controller),
           new Text("foobar"),
           new Text("foobar"),
           new Text("foobar"),

@@ -51,3 +51,93 @@ class VideoState extends State<Video> {
   }
 
 }
+
+class VideoX extends StatefulWidget {
+
+  final VideoPlayerController controller;
+  const VideoX(this.controller);
+
+  @override
+  VideoXState createState() => new VideoXState();
+
+}
+
+class VideoXState extends State<VideoX> {
+
+  @override
+  void initState() {
+
+    super.initState();
+    print('-------------- initState (VideoX)--------------');
+  }
+
+  @override
+  void didUpdateWidget(VideoX oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print('-------------- didUpdateWidget (VideoX)--------------');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return new AspectRatio(
+            aspectRatio: 1280/720,
+            child: new VideoPlayer(widget.controller)
+            );
+
+  }
+
+}
+
+class VideoXX extends StatefulWidget {
+
+  final String url;
+  final VideoPlayerController controller;
+  VideoXX(this.url) : controller = new VideoPlayerController(url);
+
+  @override
+  VideoXXState createState() => new VideoXXState();
+
+}
+
+class VideoXXState extends State<VideoXX> {
+
+  @override
+  void initState() {
+    super.initState();
+    print('-------------- initState (VideoXX)--------------');
+
+      Future<Null> initController(VideoPlayerController controller) async {
+
+         final bool controllerInitialized = controller.value.initialized;
+         print("-------------------------------");
+         print(controllerInitialized);
+        if(!controllerInitialized) {
+          controller.setLooping(true);
+          controller.play();
+          await controller.initialize();
+        }
+        setState(() {});
+      }
+
+      initController(widget.controller);
+  }
+
+  @override
+  void didUpdateWidget(VideoXX oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print('-------------- didUpdateWidget (VideoXX)--------------');
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    return new AspectRatio(
+            aspectRatio: 1280/720,
+            child: new VideoPlayer(widget.controller)
+            );
+
+  }
+
+}
