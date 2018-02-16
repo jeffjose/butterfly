@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:butterfly/theme.dart' as Theme;
 
 const String talkUri =
     'http://mirrors.standaloneinstaller.com/video-sample/DLP_PART_2_768k.mp4';
@@ -141,3 +142,25 @@ class VideoXXState extends State<VideoXX> {
   }
 
 }
+
+class ImageXX extends StatelessWidget {
+
+  final String url;
+
+  ImageXX(this.url);
+
+  @override
+  Widget build(BuildContext context) {
+      return new Container(
+          color: Theme.Colors.mediaBackground,
+          height: 350.0,
+          child: new Image.network(this.url,
+            fit: BoxFit.fitWidth,
+            gaplessPlayback: true,
+          )
+          );
+
+  }
+
+}
+
