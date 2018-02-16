@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
         body: new Column(
           children: <Widget>[
             new AppBarX("memester"),
-            new Memes(),
+            new MemesX(),
     ]));
   }
 }

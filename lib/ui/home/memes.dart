@@ -1,11 +1,14 @@
+import 'dart:async';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:butterfly/routes.dart';
 import 'package:butterfly/theme.dart' as Theme;
 import 'package:butterfly/model/memedata.dart';
 import 'package:flutter_image/network.dart';
+import 'package:video_player/video_player.dart';
 
 import 'package:butterfly/ui/components/video.dart';
+
 
 
 
@@ -52,8 +55,32 @@ class Media extends StatelessWidget {
 class MemeCard extends StatefulWidget {
 
   final Meme meme;
+  final Media media;
 
-  const MemeCard({Key key, this.meme});
+  Widget widgets;
+
+  MemeCard({Key key, this.meme}) : media = new Media(url: meme.url), super(key: key) {
+
+    print("============================================");
+    print("");
+    print("");
+    print("MemeCard");
+    print("");
+    print("============================================");
+
+    final info = new Row(children: <Widget>[
+      new Text(this.meme.url),
+      new Icon(Icons.comment),
+    ]);
+
+    this.widgets = new Container(
+        color: Colors.green,
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        margin: const EdgeInsets.symmetric(vertical: 10.0),
+        child: new Column(children: <Widget>[this.media, info]),
+          );
+
+  }
 
   @override
   MemeCardState createState() => new MemeCardState();
@@ -62,13 +89,11 @@ class MemeCard extends StatefulWidget {
 
 class MemeCardState extends State<MemeCard> {
 
-  Media media;
-
   @override
   void initState() {
 
     print("XXXXXXXXXXXXXX  2a. MemeCard.initState(). Building Media(): " + widget.meme.url);
-    media = new Media(url: widget.meme.url);
+    //media = new Media(url: widget.meme.url);
     super.initState();
 
 
@@ -77,19 +102,20 @@ class MemeCardState extends State<MemeCard> {
   @override
   Widget build(BuildContext context) {
 
-    final info = new Row(children: <Widget>[
-      new Text(widget.meme.url),
-      new Icon(Icons.comment),
-    ]);
+    //final info = new Row(children: <Widget>[
+    //  new Text(widget.meme.url),
+    //  new Icon(Icons.comment),
+    //]);
 
     print("XXXXXXXXXXXXXX  2. MemeCard.build(). Returning Card: " + widget.meme.url);
 
-    return new Container(
-        color: Colors.green,
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
-        margin: const EdgeInsets.symmetric(vertical: 10.0),
-        child: new Column(children: <Widget>[media, info]),
-          );
+    return widget.widgets;
+    //return new Container(
+    //    color: Colors.green,
+    //    padding: const EdgeInsets.symmetric(vertical: 10.0),
+    //    margin: const EdgeInsets.symmetric(vertical: 10.0),
+    //    child: new Column(children: <Widget>[widget.media, info]),
+    //      );
   }
 }
 
@@ -135,5 +161,108 @@ class MemesState extends State<Memes> {
             )
 
             ));
+  }
+}
+
+class MemesX extends StatefulWidget {
+
+  MemesX({Key key}) : super(key: key) {
+
+  }
+
+  @override
+  MemesXState createState() => new MemesXState();
+}
+
+class MemesXState extends State<MemesX> {
+
+    final VideoPlayerController controller = new VideoPlayerController('http://mirrors.standaloneinstaller.com/video-sample/DLP_PART_2_768k.mp4');
+
+  @override
+  void initState() {
+    super.initState();
+
+      Future<Null> initController(VideoPlayerController controller) async {
+
+         final bool controllerInitialized = controller.value.initialized;
+         print("-------------------------------");
+         print(controllerInitialized);
+        controller.setLooping(true);
+        controller.play();
+        await controller.initialize();
+        setState(() {});
+      }
+
+      initController(controller);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return new Flexible(
+    child: new ListView(
+        children: <Widget>[
+          new Text("foobar"),
+          new Text("foobar"),
+          //new Video(url: "foobar"),
+          //new VideoPlayer(controller),
+            new AspectRatio(
+            aspectRatio: 1280/720,
+            child: new VideoPlayer(controller)
+          ),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("xxxx"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("xxxx"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("xxxx"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("xxxx"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("foobar"),
+          new Text("xxxx"),
+          new Text("foobar"),
+          new Text("foobar"),
+          ]
+          )
+          );
   }
 }
