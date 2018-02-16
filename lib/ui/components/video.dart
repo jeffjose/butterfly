@@ -27,20 +27,42 @@ class VideoState extends State<Video> {
 
     Future<Null> initController(VideoPlayerController controller) async {
 
-       final bool controllerInitialized = controller.value.initialized;
-       print("-------------------------------");
-       print(controllerInitialized);
-      controller.setLooping(true);
-      controller.play();
-      await controller.initialize();
-      setState(() {});
+        final bool controllerInitialized = controller.value.initialized;
+        print("-------------------------------");
+        print("-------------------------------");
+        print(controllerInitialized);
+        controller.setLooping(true);
+        controller.play();
+        print("-------------------------------");
+        print("-------------------------------");
+        await controller.initialize();
+        setState(() {});
     }
 
     initController(controller);
     //initController(new VideoPlayerController(talkUri));
   }
 
+  @override
+  void didUpdateWidget(Video oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+    print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+    print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+    print("XXXXXXXXXXX didUpdateWidget XXXXXXXXXXXXXXXXX");
+    print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+    print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+    print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+
+
+    print("                     VideoState.build()      ");
 
     return new Center(
         child: new AspectRatio(
