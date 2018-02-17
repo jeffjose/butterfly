@@ -113,7 +113,10 @@ class VideoXXState extends State<VideoXX> {
          final bool controllerInitialized = controller.value.initialized;
          print("-------------------------------");
          print(controllerInitialized);
-        if(!controllerInitialized) {
+        if(controllerInitialized) {
+          controller.pause();
+        }
+        else {
           controller.setLooping(true);
           controller.play();
           await controller.initialize();
