@@ -200,6 +200,16 @@ class MemesXState extends State<MemesX> {
   Widget build(BuildContext context) {
 
     return new Flexible(
+        child: new ListView(
+          children: GIFS.memes.map((Meme meme) => new ImageXX(meme.url)).toList()
+          )
+        );
+  }
+
+  @override
+  Widget buildx(BuildContext context) {
+
+    return new Flexible(
     child: new ListView(
         children: <Widget>[
           new Text("VideoXX"),
