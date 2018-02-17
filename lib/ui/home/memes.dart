@@ -55,11 +55,10 @@ class Media extends StatelessWidget {
 class MemeCard extends StatefulWidget {
 
   final Meme meme;
-  final Media media;
+  final Widget media;
+  Widget info;
 
-  Widget widgets;
-
-  MemeCard({Key key, this.meme}) : media = new Media(url: meme.url), super(key: key) {
+  MemeCard({Key key, this.meme, this.media}) : super(key: key) {
 
     print("============================================");
     print("");
@@ -68,17 +67,11 @@ class MemeCard extends StatefulWidget {
     print("");
     print("============================================");
 
-    final info = new Row(children: <Widget>[
+    info = new Row(children: <Widget>[
       new Text(this.meme.url),
       new Icon(Icons.comment),
     ]);
 
-    this.widgets = new Container(
-        color: Colors.green,
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
-        margin: const EdgeInsets.symmetric(vertical: 10.0),
-        child: new Column(children: <Widget>[this.media, info]),
-          );
 
   }
 
@@ -93,7 +86,6 @@ class MemeCardState extends State<MemeCard> {
   void initState() {
 
     print("XXXXXXXXXXXXXX  2a. MemeCard.initState(). Building Media(): " + widget.meme.url);
-    //media = new Media(url: widget.meme.url);
     super.initState();
 
 
@@ -102,20 +94,14 @@ class MemeCardState extends State<MemeCard> {
   @override
   Widget build(BuildContext context) {
 
-    //final info = new Row(children: <Widget>[
-    //  new Text(widget.meme.url),
-    //  new Icon(Icons.comment),
-    //]);
-
     print("XXXXXXXXXXXXXX  2. MemeCard.build(). Returning Card: " + widget.meme.url);
 
-    return widget.widgets;
-    //return new Container(
-    //    color: Colors.green,
-    //    padding: const EdgeInsets.symmetric(vertical: 10.0),
-    //    margin: const EdgeInsets.symmetric(vertical: 10.0),
-    //    child: new Column(children: <Widget>[widget.media, info]),
-    //      );
+    return new Column(
+        children: <Widget>[
+          widget.media,
+          widget.info
+        ]
+        );
   }
 }
 
@@ -182,18 +168,6 @@ class MemesXState extends State<MemesX> {
   void initState() {
     super.initState();
 
-      //Future<Null> initController(VideoPlayerController controller) async {
-
-      //   final bool controllerInitialized = controller.value.initialized;
-      //   //print("-------------------------------");
-      //   //print(controllerInitialized);
-      //  controller.setLooping(true);
-      //  controller.play();
-      //  await controller.initialize();
-      //  setState(() {});
-      //}
-
-      //initController(controller);
   }
 
   @override
@@ -201,105 +175,16 @@ class MemesXState extends State<MemesX> {
 
     return new Flexible(
         child: new ListView(
-          children: GIFS.memes.map((Meme meme) => new ImageXX(meme.url)).toList()
+          //children: GIFS.memes.map((Meme meme) => new ImageXX(meme.url)).toList()
+          children: GIFS.memes.map((Meme meme){
+
+            // TODO: Assumption that this is always going to be ImageXX
+            ImageXX media = new ImageXX(meme.url);
+            return new MemeCard(meme: meme, media: media);
+          }).toList()
+
           )
         );
   }
 
-  @override
-  Widget buildx(BuildContext context) {
-
-    return new Flexible(
-    child: new ListView(
-        children: <Widget>[
-          new Text("VideoXX"),
-          new VideoXX('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4'),
-          new Text("Inline"),
-          //new Video(url: "foobar"),
-          //new VideoPlayer(controller),
-          //  new AspectRatio(
-          //  aspectRatio: 1280/720,
-          //  child: new VideoPlayer(controller)
-          //),
-          new Text("foobar"),
-          //new Text("Inline"),
-          //  new AspectRatio(
-          //  aspectRatio: 1280/720,
-          //  child: new VideoPlayer(controller)
-          //),
-          new Text("VideoXX"),
-          //new VideoXX('http://mirrors.standaloneinstaller.com/video-sample/DLP_PART_2_768k.mp4'),
-          new Text("foobar"),
-          new Text("VideoX"),
-          //new VideoX(controller),
-          new Text("png"),
-          new ImageXX('http://via.placeholder.com/350x150.png'),
-          new Text("foobar"),
-          new Text("foobar"),
-          new VideoXX('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4'),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("jpg"),
-          new ImageXX('http://via.placeholder.com/350x150.jpg'),
-          new Text("foobar"),
-          new VideoXX('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("gif"),
-          new ImageXX('http://via.placeholder.com/350x150.gif'),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("foobar"),
-          new VideoXX('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4'),
-          new Text("xxxx"),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("foobar"),
-          new VideoXX('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4'),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("xxxx"),
-          new Text("foobar"),
-          new Text("foobar"),
-          new VideoXX('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4'),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("webm"),
-          //new VideoXX('https://giant.gfycat.com/WaryGorgeousCamel.webm'),
-          new Text("foobar"),
-          new Text("foobar"),
-          new VideoXX('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4'),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("xxxx"),
-          new Text("foobar"),
-          new VideoXX('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4'),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("webm"),
-          //new VideoXX('https://giant.gfycat.com/oddballscrawnyadeliepenguin.webm'),
-          new Text("foobar"),
-          new Text("gif"),
-          new ImageXX('http://via.placeholder.com/350x150.gif'),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("foobar"),
-          new VideoXX('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4'),
-          new Text("foobar"),
-          new Text("foobar"),
-          new Text("xxxx"),
-          new Text("foobar"),
-          new VideoXX('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'),
-          new Text("foobar"),
-          ]
-          )
-          );
-  }
 }
