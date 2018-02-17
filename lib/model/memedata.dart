@@ -7,6 +7,93 @@ class Meme {
   const Meme({this.id, this.author, this.template, this.url});
 }
 
+class WEBP {
+  static final List<Meme> memes = [
+
+  const Meme(
+      id: 1,
+      author: 'foobar',
+      template: 'nice_template',
+      url: 'https://jeffjo.se/media/test/0.webp'),
+  const Meme(
+      id: 1,
+      author: 'foobar',
+      template: 'nice_template',
+      url: 'https://jeffjo.se/media/test/1.webp'),
+  const Meme(
+      id: 2,
+      author: 'nicer',
+      template: 'template2',
+      url: 'https://jeffjo.se/media/test/2.webp'),
+  const Meme(
+      id: 3,
+      author: 'rust',
+      template: 'rusttemplate',
+      url: 'https://jeffjo.se/media/test/3.webp'),
+  const Meme(
+      id: 4,
+      author: 'reddit',
+      template: 'downvote',
+      url: 'https://jeffjo.se/media/test/4.webp'),
+  const Meme(
+      id: 5,
+      author: 'halftime',
+      template: 'halftime',
+      url: 'https://jeffjo.se/media/test/5.webp'),
+  const Meme(
+      id: 1,
+      author: 'foobar',
+      template: 'nice_template',
+      url: 'https://jeffjo.se/media/test/6.webp'),
+  const Meme(
+      id: 1,
+      author: 'foobar',
+      template: 'nice_template',
+      url: 'https://jeffjo.se/media/test/7.webp'),
+  const Meme(
+      id: 2,
+      author: 'nicer',
+      template: 'template2',
+      url: 'https://jeffjo.se/media/test/8.webp'),
+  const Meme(
+      id: 3,
+      author: 'rust',
+      template: 'rusttemplate',
+      url: 'https://jeffjo.se/media/test/9.webp'),
+  const Meme(
+      id: 4,
+      author: 'reddit',
+      template: 'downvote',
+      url: 'https://jeffjo.se/media/test/10.webp'),
+  const Meme(
+      id: 5,
+      author: 'halftime',
+      template: 'halftime',
+      url: 'https://jeffjo.se/media/test/11.webp'),
+  const Meme(
+      id: 3,
+      author: 'rust',
+      template: 'rusttemplate',
+      url: 'https://jeffjo.se/media/test/12.webp'),
+  const Meme(
+      id: 4,
+      author: 'reddit',
+      template: 'downvote',
+      url: 'https://jeffjo.se/media/test/13.webp'),
+  const Meme(
+      id: 5,
+      author: 'halftime',
+      template: 'halftime',
+      url: 'https://jeffjo.se/media/test/14.webp'),
+  const Meme(
+      id: 5,
+      author: 'halftime',
+      template: 'halftime',
+      url: 'https://jeffjo.se/media/test/15.webp'),
+
+  ];
+}
+
 class GIFS {
   static final List<Meme> memes = [
 

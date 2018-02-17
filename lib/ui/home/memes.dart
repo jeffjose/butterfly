@@ -176,7 +176,7 @@ class MemesXState extends State<MemesX> {
     return new Flexible(
         child: new ListView(
           //children: GIFS.memes.map((Meme meme) => new ImageXX(meme.url)).toList()
-          children: GIFS.memes.map((Meme meme){
+          children: WEBP.memes.map((Meme meme){
 
             // TODO: Assumption that this is always going to be ImageXX
             ImageXX media = new ImageXX(meme.url);
