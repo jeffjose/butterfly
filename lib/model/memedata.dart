@@ -183,6 +183,93 @@ class GIFS {
 
 class MemeData {
   static final List<Meme> memes = [
+
+  const Meme(
+      id: 1,
+      author: 'foobar',
+      template: 'nice_template',
+      url: 'https://jeffjo.se/media/test/0'),
+  const Meme(
+      id: 1,
+      author: 'foobar',
+      template: 'nice_template',
+      url: 'https://jeffjo.se/media/test/1'),
+  const Meme(
+      id: 2,
+      author: 'nicer',
+      template: 'template2',
+      url: 'https://jeffjo.se/media/test/2'),
+  const Meme(
+      id: 3,
+      author: 'rust',
+      template: 'rusttemplate',
+      url: 'https://jeffjo.se/media/test/3'),
+  const Meme(
+      id: 4,
+      author: 'reddit',
+      template: 'downvote',
+      url: 'https://jeffjo.se/media/test/4'),
+  const Meme(
+      id: 5,
+      author: 'halftime',
+      template: 'halftime',
+      url: 'https://jeffjo.se/media/test/5'),
+  const Meme(
+      id: 1,
+      author: 'foobar',
+      template: 'nice_template',
+      url: 'https://jeffjo.se/media/test/6'),
+  const Meme(
+      id: 1,
+      author: 'foobar',
+      template: 'nice_template',
+      url: 'https://jeffjo.se/media/test/7'),
+  const Meme(
+      id: 2,
+      author: 'nicer',
+      template: 'template2',
+      url: 'https://jeffjo.se/media/test/8'),
+  const Meme(
+      id: 3,
+      author: 'rust',
+      template: 'rusttemplate',
+      url: 'https://jeffjo.se/media/test/9'),
+  const Meme(
+      id: 4,
+      author: 'reddit',
+      template: 'downvote',
+      url: 'https://jeffjo.se/media/test/10'),
+  const Meme(
+      id: 5,
+      author: 'halftime',
+      template: 'halftime',
+      url: 'https://jeffjo.se/media/test/11'),
+  const Meme(
+      id: 3,
+      author: 'rust',
+      template: 'rusttemplate',
+      url: 'https://jeffjo.se/media/test/12'),
+  const Meme(
+      id: 4,
+      author: 'reddit',
+      template: 'downvote',
+      url: 'https://jeffjo.se/media/test/13'),
+  const Meme(
+      id: 5,
+      author: 'halftime',
+      template: 'halftime',
+      url: 'https://jeffjo.se/media/test/14'),
+  const Meme(
+      id: 5,
+      author: 'halftime',
+      template: 'halftime',
+      url: 'https://jeffjo.se/media/test/15'),
+
+  ];
+}
+
+class OldMemeData {
+  static final List<Meme> memes = [
     const Meme(
         id: 6,
         author: 'burgerwithfries',
