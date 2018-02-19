@@ -106,13 +106,15 @@ class VideoXXState extends State<VideoXX> {
   @override
   void initState() {
     super.initState();
-    print('-------------- initState (VideoXX)--------------');
+
+    print('---------- INIT ${widget.url}');
 
       Future<Null> initController(VideoPlayerController controller) async {
 
-         final bool controllerInitialized = controller.value.initialized;
-         print("-------------------------------");
-         print(controllerInitialized);
+        final bool controllerInitialized = controller.value.initialized;
+        print("-------------------------------");
+        print(controllerInitialized);
+
         if(controllerInitialized) {
           controller.pause();
         }
@@ -130,7 +132,7 @@ class VideoXXState extends State<VideoXX> {
   @override
   void didUpdateWidget(VideoXX oldWidget) {
     super.didUpdateWidget(oldWidget);
-    print('-------------- didUpdateWidget (VideoXX)--------------');
+    print('---------- UPDATE ${widget.url}');
   }
 
 
