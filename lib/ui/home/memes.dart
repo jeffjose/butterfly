@@ -61,14 +61,14 @@ class Media extends StatelessWidget {
 class MemeCard extends StatefulWidget {
 
   final Meme meme;
-  final Widget media;
+  final Widget image;
   final ScrollController scrollController;
   Widget info;
 
   double endPos;
   double top;
 
-  MemeCard({Key key, this.meme, this.media, this.scrollController, this.endPos, this.top}) : super(key: key) {
+  MemeCard({Key key, this.meme, this.image, this.scrollController, this.endPos, this.top}) : super(key: key) {
 
 
 
@@ -107,14 +107,10 @@ class MemeCardState extends State<MemeCard> {
 
   }
 
-  // The bounding box for context in global coordinates.
-
-
   Future<Null> listener() async {
 
     if (mounted) {
       //print("mounted ${widget.scrollController}");
-
     }
 
   }
@@ -122,93 +118,68 @@ class MemeCardState extends State<MemeCard> {
   @override
   Widget build(BuildContext context) {
 
+    bool inView = false;
+
 
     print("######## BUILD ${widget.meme.url}");
+
     final RenderBox box = context.findRenderObject();
-    bool inView = false;
-    double offset, viewportDimension, viewportBottom, viewportMidpoint;
-    double top, bottom, widgetMidpoint;
+    double offset, viewportDimension, viewportBottom;
+    double top, bottom;
 
     if (box != null) {
       Size size = MediaQuery.of(context).size;
-      EdgeInsets viewInsets = MediaQuery.of(context).viewInsets;
 
       offset = widget.scrollController.offset;
-      //viewportDimension = widget.scrollController.position.viewportDimension + 56.0;
       viewportDimension = size.height;
       viewportBottom   = offset + viewportDimension;
-      viewportMidpoint = offset + (viewportDimension/2);
 
       Rect bbox = _globalBoundingBoxFor(context);
       top = bbox.top + offset;
       bottom = bbox.bottom + offset;
-      widgetMidpoint = (top + bottom) / 2;
-
-     // print("${widget.meme.url} ${widget.scrollController.position.viewportDimension} ${widget.scrollController.offset} ${context.size}");
-      //print("${widget.meme.url} ${_globalBoundingBoxFor(context)}");
-      //print("${widget.meme.url} viewportMidpoint: ${viewportMidpoint} widgetMidpoint: ${widgetMidpoint}");
-
-      print("-------------");
-
-      print("${widget.meme.id} size ${size}");
-      print("${widget.meme.id} viewportDimension ${viewportDimension}");
-      print("${widget.meme.id} viewInsets ${viewInsets}");
-      print("${widget.meme.id} bbox ${bbox}");
-      print("${widget.meme.id} offset ${offset}");
-      print("${widget.meme.id} top: ${top} -> bottom: ${bottom}");
-      print("${widget.meme.id} viewportBottom ${offset + viewportDimension}");
-      print("-------------");
 
       if ((top > (offset + widget.top)) && (bottom < viewportBottom)) {
         print("${widget.meme.url} completly inside");
         inView = true;
       }
 
-      //else if ((widgetMidpoint > offset) && (widgetMidpoint < offset + viewportDimension) ) {
-      //  inView = false;
-      //  print("${widget.meme.url} is in view");
-
-      //}
       else {
-        //print("${widget.meme.url} NOT is in view");
-        inView = false;
+        //
       }
     }
     else {
       print("box is null");
-      inView = false;
     }
 
 
     Widget info;
 
     if (box != null) {
-      info = new Column(children: <Widget>[
-        new Text("${widget.meme.id} inView: ${inView}"),
-        new Text("top(${top.toStringAsFixed(2)}) > offset(${offset.toStringAsFixed(2)}): ${top > offset}"),
-        new Text("bottom(${bottom.toStringAsFixed(2)}) < viewportBottom(${viewportBottom.toStringAsFixed(2)}): ${bottom < viewportBottom}"),
+      info = new Row(children: <Widget>[
+        new Text("${widget.meme.id}"),
         new Icon(Icons.comment),
       ]);
     }
     else {
-      info = new Column(children: <Widget>[
-        new Text("${widget.meme.id} inView: ${inView}"),
+      info = new Row(children: <Widget>[
+        new Text("${widget.meme.id}"),
         new Icon(Icons.comment),
       ]);
     }
 
-    Widget x = new ImageXX("http://via.placeholder.com/350x150.png");
+    Widget x = new ImageXX("http://via.placeholder.com/350x250.png");
 
     if (inView == true) {
 
+      BorderSide border = new BorderSide(width: 1.0, color: Colors.redAccent);
+
       return new Container(
-          //margin: const EdgeInsets.all(10.0),
           decoration: new BoxDecoration(
-            border: new Border.all(width: 3.0, color: Colors.redAccent)
+            border: new Border(top: border)
             ),
           child: new Column(
             children: <Widget>[
-              widget.media,
+              widget.image,
               info,
             ]
             )
@@ -216,10 +187,10 @@ class MemeCardState extends State<MemeCard> {
           );
     }
     else {
+      BorderSide border = new BorderSide(width: 1.0, color: Colors.blueAccent);
       return new Container(
-          //margin: const EdgeInsets.all(10.0),
           decoration: new BoxDecoration(
-            border: new Border.all(width: 3.0, color: Colors.blueAccent)
+            border: new Border(top: border)
             ),
           child: new Column(
             children: <Widget>[
@@ -355,8 +326,9 @@ class MemesXState extends State<MemesX> {
 
             children: MemeData.memes.map((Meme meme){
 
-              ImageXX media = new ImageXX("${meme.url}.png");
-              return new MemeCard(meme: meme, media: media, scrollController: scrollController, endPos: endPos, top: top);
+              ImageXX image = new ImageXX("${meme.url}.png");
+              //ImageXX video = new Video("${meme.url}.mp4");
+              return new MemeCard(meme: meme, image: image, scrollController: scrollController, endPos: endPos, top: top);
 
             }).toList()
 

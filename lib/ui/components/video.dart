@@ -156,7 +156,7 @@ class ImageXX extends StatelessWidget {
   Widget build(BuildContext context) {
       return new Container(
           color: Theme.Colors.mediaBackground,
-          height: 350.0,
+          height: 300.0,
           child: new Image.network(this.url,
             fit: BoxFit.fitWidth,
             gaplessPlayback: true,

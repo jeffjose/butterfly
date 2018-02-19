@@ -9,7 +9,7 @@ class Colors {
   static const Color appBarGradientStart = const Color(0xFFEC008C);
   static const Color appBarGradientEnd = const Color(0xFFFC6767);
 
-  static const Color mediaBackground = const Color(0xFF222124);
+  static const Color mediaBackground = const Color(0xFFFFFFFF);
 }
 
 class TextStyles {
