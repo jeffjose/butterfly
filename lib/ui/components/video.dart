@@ -116,7 +116,7 @@ class VideoXXState extends State<VideoXX> {
         print(controllerInitialized);
 
         if(controllerInitialized) {
-          controller.pause();
+          //controller.pause();
         }
         else {
           controller.setLooping(true);
@@ -138,6 +138,7 @@ class VideoXXState extends State<VideoXX> {
 
   @override
   Widget build(BuildContext context) {
+    print('---------- BUILD ${widget.url}');
 
     return new AspectRatio(
             aspectRatio: 1280/720,

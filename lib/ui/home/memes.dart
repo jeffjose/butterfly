@@ -25,7 +25,6 @@ class MemeCard extends StatefulWidget {
   final ScrollController scrollController;
   Widget info;
 
-  double endPos;
   double top;
 
   MemeCard({
@@ -34,7 +33,6 @@ class MemeCard extends StatefulWidget {
     this.image,
     this.video,
     this.scrollController,
-    this.endPos,
     this.top}) : super(key: key) {
 
 
@@ -145,6 +143,7 @@ class MemeCardState extends State<MemeCard> {
             children: <Widget>[
               widget.video,
               info,
+              new Text("${inView}")
             ]
             )
 
@@ -160,7 +159,9 @@ class MemeCardState extends State<MemeCard> {
             children: <Widget>[
               new Stack(
                 children: <Widget>[widget.video, widget.image]),
+            //widget.video,
               info,
+              new Text("${inView}")
             ]
             )
 
@@ -221,7 +222,6 @@ class MemesXState extends State<MemesX> {
   final VideoPlayerController controller = new VideoPlayerController('http://mirrors.standaloneinstaller.com/video-sample/DLP_PART_2_768k.mp4');
   final ScrollController scrollController = new ScrollController();
 
-  double endPos = 10.0;
   double top = 0.0;
 
   double offset;
@@ -231,7 +231,6 @@ class MemesXState extends State<MemesX> {
     super.initState();
 
     setState((){
-      endPos = 0.0;
       top = 0.0;
     });
   }
@@ -246,7 +245,6 @@ class MemesXState extends State<MemesX> {
       Rect bbox = _globalBoundingBoxFor(context);
 
       setState((){
-        endPos = notification.metrics.pixels;
         top = bbox.top;
       });
 
@@ -260,6 +258,8 @@ class MemesXState extends State<MemesX> {
   @override
   Widget build(BuildContext context) {
 
+    print("Memes BUILD");
+
     return new Flexible(
         child: new NotificationListener<ScrollNotification>(
           onNotification: _handleScrollNotification,
@@ -270,8 +270,9 @@ class MemesXState extends State<MemesX> {
             children: MemeData.memes.map((Meme meme){
 
               ImageXX image = new ImageXX("${meme.url}.png");
-              ImageXX video = new ImageXX("${meme.url}.webp");
-              return new MemeCard(meme: meme, image: image, video: video, scrollController: scrollController, endPos: endPos, top: top);
+              //ImageXX video = new ImageXX("${meme.url}.webp");
+              VideoXX video = new VideoXX("${meme.url}.mp4");
+              return new MemeCard(meme: meme, image: image, video: video, scrollController: scrollController, top: top);
 
             }).toList()
 
