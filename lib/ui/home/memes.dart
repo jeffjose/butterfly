@@ -158,7 +158,8 @@ class MemeCardState extends State<MemeCard> {
             ),
           child: new Column(
             children: <Widget>[
-              widget.image,
+              new Stack(
+                children: <Widget>[widget.video, widget.image]),
               info,
             ]
             )
@@ -269,7 +270,7 @@ class MemesXState extends State<MemesX> {
             children: MemeData.memes.map((Meme meme){
 
               ImageXX image = new ImageXX("${meme.url}.png");
-              VideoXX video = new VideoXX("${meme.url}.mp4");
+              ImageXX video = new ImageXX("${meme.url}.webp");
               return new MemeCard(meme: meme, image: image, video: video, scrollController: scrollController, endPos: endPos, top: top);
 
             }).toList()
