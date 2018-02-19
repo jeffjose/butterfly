@@ -11,6 +11,11 @@ import 'package:video_player/video_player.dart';
 import 'package:butterfly/ui/components/video.dart';
 
 
+  Rect _globalBoundingBoxFor(BuildContext context) {
+    final RenderBox box = context.findRenderObject();
+    assert(box != null && box.hasSize);
+    return MatrixUtils.transformRect(box.getTransformTo(null), Offset.zero & box.size);
+  }
 
 
 class Media extends StatelessWidget {
@@ -61,8 +66,9 @@ class MemeCard extends StatefulWidget {
   Widget info;
 
   double endPos;
+  double top;
 
-  MemeCard({Key key, this.meme, this.media, this.scrollController, this.endPos}) : super(key: key) {
+  MemeCard({Key key, this.meme, this.media, this.scrollController, this.endPos, this.top}) : super(key: key) {
 
 
 
@@ -102,11 +108,6 @@ class MemeCardState extends State<MemeCard> {
   }
 
   // The bounding box for context in global coordinates.
-  Rect _globalBoundingBoxFor(BuildContext context) {
-    final RenderBox box = context.findRenderObject();
-    assert(box != null && box.hasSize);
-    return MatrixUtils.transformRect(box.getTransformTo(null), Offset.zero & box.size);
-  }
 
 
   Future<Null> listener() async {
@@ -125,16 +126,23 @@ class MemeCardState extends State<MemeCard> {
     print("######## BUILD ${widget.meme.url}");
     final RenderBox box = context.findRenderObject();
     bool inView = false;
+    double offset, viewportDimension, viewportBottom, viewportMidpoint;
+    double top, bottom, widgetMidpoint;
+
     if (box != null) {
-      double offset = widget.scrollController.offset;
-      double viewportDimension = widget.scrollController.position.viewportDimension;
-      double viewportBottom   = offset + viewportDimension;
-      double viewportMidpoint = offset + (viewportDimension/2);
+      Size size = MediaQuery.of(context).size;
+      EdgeInsets viewInsets = MediaQuery.of(context).viewInsets;
+
+      offset = widget.scrollController.offset;
+      //viewportDimension = widget.scrollController.position.viewportDimension + 56.0;
+      viewportDimension = size.height;
+      viewportBottom   = offset + viewportDimension;
+      viewportMidpoint = offset + (viewportDimension/2);
 
       Rect bbox = _globalBoundingBoxFor(context);
-      double top = bbox.top + offset;
-      double bottom = bbox.bottom + offset;
-      double widgetMidpoint = (top + bottom) / 2;
+      top = bbox.top + offset;
+      bottom = bbox.bottom + offset;
+      widgetMidpoint = (top + bottom) / 2;
 
      // print("${widget.meme.url} ${widget.scrollController.position.viewportDimension} ${widget.scrollController.offset} ${context.size}");
       //print("${widget.meme.url} ${_globalBoundingBoxFor(context)}");
@@ -142,13 +150,16 @@ class MemeCardState extends State<MemeCard> {
 
       print("-------------");
 
-      print("${widget.meme.url} bbox ${bbox}");
-      print("${widget.meme.url} offset ${offset}");
-      print("${widget.meme.url} top: ${top} -> bottom: ${bottom}");
-      print("${widget.meme.url} viewportend ${offset + viewportDimension}");
+      print("${widget.meme.id} size ${size}");
+      print("${widget.meme.id} viewportDimension ${viewportDimension}");
+      print("${widget.meme.id} viewInsets ${viewInsets}");
+      print("${widget.meme.id} bbox ${bbox}");
+      print("${widget.meme.id} offset ${offset}");
+      print("${widget.meme.id} top: ${top} -> bottom: ${bottom}");
+      print("${widget.meme.id} viewportBottom ${offset + viewportDimension}");
       print("-------------");
 
-      if ((top > offset) && (bottom < viewportBottom)) {
+      if ((top > (offset + widget.top)) && (bottom < viewportBottom)) {
         print("${widget.meme.url} completly inside");
         inView = true;
       }
@@ -169,27 +180,54 @@ class MemeCardState extends State<MemeCard> {
     }
 
 
-    Widget info = new Row(children: <Widget>[
-      new Text("${widget.meme.url} ${widget.endPos} ${inView}"),
-      new Icon(Icons.comment),
-    ]);
+    Widget info;
+
+    if (box != null) {
+      info = new Column(children: <Widget>[
+        new Text("${widget.meme.id} inView: ${inView}"),
+        new Text("top(${top.toStringAsFixed(2)}) > offset(${offset.toStringAsFixed(2)}): ${top > offset}"),
+        new Text("bottom(${bottom.toStringAsFixed(2)}) < viewportBottom(${viewportBottom.toStringAsFixed(2)}): ${bottom < viewportBottom}"),
+        new Icon(Icons.comment),
+      ]);
+    }
+    else {
+      info = new Column(children: <Widget>[
+        new Text("${widget.meme.id} inView: ${inView}"),
+        new Icon(Icons.comment),
+      ]);
+    }
 
     Widget x = new ImageXX("http://via.placeholder.com/350x150.png");
 
     if (inView == true) {
-      return new Column(
-          children: <Widget>[
-            widget.media,
-            info,
-          ]
+
+      return new Container(
+          //margin: const EdgeInsets.all(10.0),
+          decoration: new BoxDecoration(
+            border: new Border.all(width: 3.0, color: Colors.redAccent)
+            ),
+          child: new Column(
+            children: <Widget>[
+              widget.media,
+              info,
+            ]
+            )
+
           );
     }
     else {
-      return new Column(
-          children: <Widget>[
-            x,
-            info,
-          ]
+      return new Container(
+          //margin: const EdgeInsets.all(10.0),
+          decoration: new BoxDecoration(
+            border: new Border.all(width: 3.0, color: Colors.blueAccent)
+            ),
+          child: new Column(
+            children: <Widget>[
+              x,
+              info,
+            ]
+            )
+
           );
 
     }
@@ -248,6 +286,7 @@ class MemesXState extends State<MemesX> {
   final ScrollController scrollController = new ScrollController();
 
   double endPos = 10.0;
+  double top = 0.0;
 
   double offset;
 
@@ -258,6 +297,7 @@ class MemesXState extends State<MemesX> {
     //scrollController.addListener(listener);
     setState((){
       endPos = 0.0;
+      top = 0.0;
     });
   }
 
@@ -280,8 +320,12 @@ class MemesXState extends State<MemesX> {
     }
     else if (notification is ScrollEndNotification)  {
       //print("End scroll at card: ~${notification.metrics.pixels ~/ 390}");
+
+      Rect bbox = _globalBoundingBoxFor(context);
+
       setState((){
         endPos = notification.metrics.pixels;
+        top = bbox.top;
       });
 
     }
@@ -312,7 +356,7 @@ class MemesXState extends State<MemesX> {
             children: MemeData.memes.map((Meme meme){
 
               ImageXX media = new ImageXX("${meme.url}.png");
-              return new MemeCard(meme: meme, media: media, scrollController: scrollController, endPos: endPos);
+              return new MemeCard(meme: meme, media: media, scrollController: scrollController, endPos: endPos, top: top);
 
             }).toList()
 
