@@ -133,35 +133,36 @@ class MemeCardState extends State<MemeCard> {
 
     if (inView == true) {
 
-      BorderSide border = new BorderSide(width: 1.0, color: Colors.redAccent);
+      BorderSide border = new BorderSide(width: 6.0, color: Theme.Colors.activeColor);
 
       return new Container(
           decoration: new BoxDecoration(
-            border: new Border(top: border)
+            //border: new Border(top: border, bottom: border)
+            //color: Theme.Colors.activeColor
             ),
           child: new Column(
             children: <Widget>[
               widget.video,
-              info,
-              new Text("${inView}")
+              //info,
+              new Text("Completely inview - ${inView}", style: new TextStyle(color: Colors.green))
             ]
             )
 
           );
     }
     else {
-      BorderSide border = new BorderSide(width: 1.0, color: Colors.blueAccent);
+      BorderSide border = new BorderSide(width: 6.0, color: Theme.Colors.inactiveColor);
       return new Container(
           decoration: new BoxDecoration(
-            border: new Border(top: border)
+            //border: new Border(top: border, bottom: border)
             ),
           child: new Column(
             children: <Widget>[
               new Stack(
                 children: <Widget>[widget.video, widget.image]),
-            //widget.video,
-              info,
-              new Text("${inView}")
+            //widget.image,
+              //info,
+              new Text("Completely inview - ${inView}")
             ]
             )
 
@@ -270,8 +271,9 @@ class MemesXState extends State<MemesX> {
             children: MemeData.memes.map((Meme meme){
 
               ImageXX image = new ImageXX("${meme.url}.png");
-              //ImageXX video = new ImageXX("${meme.url}.webp");
-              VideoXX video = new VideoXX("${meme.url}.mp4");
+              ImageXX video = new ImageXX("${meme.url}.webp");
+              //ImageXX video = new ImageXX("${meme.url}.png");
+              //VideoXX video = new VideoXX("${meme.url}.mp4");
               return new MemeCard(meme: meme, image: image, video: video, scrollController: scrollController, top: top);
 
             }).toList()

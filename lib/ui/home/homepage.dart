@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
     return new Scaffold(
         body: new Column(
           children: <Widget>[
-            new AppBarX("memester"),
+            new AppBarX("demo"),
             new MemesX(),
     ]));
   }
