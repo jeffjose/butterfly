@@ -142,7 +142,9 @@ class MemeCardState extends State<MemeCard> {
             ),
           child: new Column(
             children: <Widget>[
-              widget.video,
+              //widget.video,
+              new Stack(
+                children: <Widget>[widget.image, widget.video]),
               //info,
               new Text("Completely inview - ${inView}", style: new TextStyle(color: Colors.green))
             ]
