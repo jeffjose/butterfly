@@ -136,6 +136,7 @@ class MemeCardState extends State<MemeCard> {
       BorderSide border = new BorderSide(width: 6.0, color: Theme.Colors.activeColor);
 
       return new Container(
+          margin: const EdgeInsets.symmetric(vertical: 10.0),
           decoration: new BoxDecoration(
             //border: new Border(top: border, bottom: border)
             //color: Theme.Colors.activeColor
@@ -155,6 +156,7 @@ class MemeCardState extends State<MemeCard> {
     else {
       BorderSide border = new BorderSide(width: 6.0, color: Theme.Colors.inactiveColor);
       return new Container(
+          margin: const EdgeInsets.symmetric(vertical: 10.0),
           decoration: new BoxDecoration(
             //border: new Border(top: border, bottom: border)
             ),
